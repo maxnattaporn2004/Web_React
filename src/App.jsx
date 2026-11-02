@@ -12,6 +12,7 @@ import AuthPage from './componant/AuthPage'
 import CarInsurance from './componant/CarInsurance'
 import PromotionSection from './componant/PromotionSection'
 import NewsSection from './componant/NewsSection'
+import ContactUs from './componant/ContactUs'
 
 // No routing library is installed, so we use a tiny hash-based route.
 // "#/login" and "#/register" show the auth page on its own
@@ -42,6 +43,17 @@ function App() {
         key={route}
         initialMode={route === 'register' ? 'register' : 'login'}
       />
+    )
+  }
+
+  // Contact page reuses the existing Navbar + Footer.
+  if (route === 'contact') {
+    return (
+      <>
+        <Header />
+        <ContactUs />
+        <Footer />
+      </>
     )
   }
 

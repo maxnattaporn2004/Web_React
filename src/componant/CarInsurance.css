@@ -5,6 +5,23 @@
 .car-insurance {
   /* Clears the fixed navbar above */
   padding-top: 68px;
+
+  /* Page background: white base so the body's decorative bs2.png image
+     can't show through behind the filter controls, plus the same soft
+     brand-tinted corner glows the other sub-pages use. The cream hero
+     paints over the top of this gradient, so the glows sit lower. */
+  background:
+    radial-gradient(
+      42rem 26rem at 112% 46%,
+      rgb(8 127 231 / 9%),
+      transparent 64%
+    ),
+    radial-gradient(
+      40rem 30rem at -8% 110%,
+      rgb(255 127 0 / 9%),
+      transparent 64%
+    ),
+    #ffffff;
 }
 
 .ci-container {
@@ -16,7 +33,7 @@
 /* ── Hero ──────────────────────────────────────────────────────────── */
 .ci-hero {
   position: relative;
-  background-color: #fdf3e3;
+  
   /* Room for the wave that overlaps the bottom */
   padding: clamp(2rem, 6vw, 3.5rem) 0 clamp(3rem, 8vw, 4.5rem);
 }

@@ -4,7 +4,27 @@
    container 1200px · slate #2f3b52 · muted #5b6472 · orange #ff7f00 */
 
 .promotion-section {
+  /* No navbar clearance needed: the section's own padding + the title's
+     margin already push the content below the fixed navbar. */
   padding: clamp(2.5rem, 6vw, 4rem) 0 clamp(3rem, 7vw, 5rem);
+
+  /* Page background (same system as News): warm cream wash at the top
+     echoing the home page's cream shape, dissolving into white behind
+     the cards, plus soft brand-tinted corner glows. The opaque base
+     covers the body's bs2.png image so it can't cut through content.
+     Glows start below the cream wash so the cream stays clean. */
+  background:
+    radial-gradient(
+      42rem 28rem at 112% 24%,
+      rgb(255 127 0 / 10%),
+      transparent 64%
+    ),
+    radial-gradient(
+      40rem 26rem at -8% 108%,
+      rgb(8 127 231 / 9%),
+      transparent 64%
+    ),
+    linear-gradient(180deg, #fdf3e3 0%, #fff9f0 13rem, #ffffff 28rem);
 }
 
 .promo-container {
@@ -15,8 +35,10 @@
 
 .promo-title {
   text-align: start;
-  font-size: clamp(4rem, 4vw, 2rem);
-  color: #2f3b52;
+  /* Same scale as the home page's section titles. (Was clamp(4rem, 4vw,
+     2rem) — min > max pinned the size at a huge 64px.) */
+  font-size: clamp(1.6rem, 4vw, 2rem);
+  color: #2b4b9b;
   margin-top: clamp(1.75rem, 4vw, 2.5rem);
   margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
 }

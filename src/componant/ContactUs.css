@@ -1,0 +1,221 @@
+/* ── Contact Us section ──────────────────────────────────────────────
+   Cream band with a wavy bottom edge, blue title with an orange pin,
+   a decorative blue blob in the top-right corner, then a centred card
+   split into the contact details (cream) and a Google Maps embed.
+   Same tokens as the rest of the site:
+   container 1200px · blue #2b4b9b · orange #ff7f00 · cream #fdf3e3 */
+
+.contact-us {
+  /* White base + the same soft brand-tinted corner glows the other
+     sub-pages use (keeps the body's bs2.png image from showing
+     through between the card and the Footer). */
+  background:
+    radial-gradient(
+      44rem 30rem at -10% 92%,
+      rgb(8 127 231 / 8%),
+      transparent 64%
+    ),
+    radial-gradient(
+      40rem 28rem at 110% 104%,
+      rgb(255 127 0 / 9%),
+      transparent 64%
+    ),
+    #ffffff;
+  /* Bottom spacing between the card and the Footer */
+  padding-bottom: clamp(3rem, 7vw, 5rem);
+  /* The wave + blob must never widen the page */
+  overflow: hidden;
+}
+
+.contact-container {
+  max-width: 1200px;
+  margin: auto;
+  padding-inline: 1.25rem;
+}
+
+/* ── Cream band with the title ──────────────────────────────────────── */
+.contact-top {
+  position: relative;
+  /* Clears the fixed navbar; the cream runs underneath it so there is
+     no white strip between the orange navbar and the cream band */
+  padding: calc(68px + clamp(1.5rem, 4vw, 2.5rem)) 0 clamp(2.5rem, 6vw, 3.5rem);
+}
+
+/* White wave = the curved bottom edge of the cream band */
+.contact-wave {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  display: block;
+  width: 100%;
+  height: clamp(28px, 6vw, 70px);
+  pointer-events: none;
+}
+
+/* Decorative blue blob — starts just below the fixed navbar so the
+   orange bar crops its top edge instead of hiding it completely */
+.contact-blob {
+  position: absolute;
+  top: clamp(44px, 5vw, 56px);
+  right: clamp(-46px, -4vw, -24px);
+  width: clamp(90px, 12vw, 160px);
+  height: clamp(70px, 9vw, 120px);
+  background-color: #2b4b9b;
+  border-radius: 45% 55% 60% 40% / 55% 45% 55% 45%;
+  transform: rotate(-8deg);
+  pointer-events: none;
+}
+
+/* ── Title: orange pin + blue Thai text ─────────────────────────────── */
+.contact-title {
+  position: relative; /* above the wave */
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  font-weight: 600;
+  color: #2b4b9b;
+}
+
+.contact-title-icon {
+  flex: 0 0 auto;
+  width: clamp(26px, 6vw, 36px);
+  height: clamp(26px, 6vw, 36px);
+  color: #ff7f00;
+}
+
+/* ── Main card ──────────────────────────────────────────────────────── */
+.contact-container + .contact-container {
+  position: relative;
+  z-index: 1; /* card sits above the wave's tail */
+  /* Pull the card up so it overlaps the bottom of the cream band */
+  margin-top: clamp(-1.5rem, -2vw, -0.5rem);
+}
+
+.contact-card {
+  display: grid;
+  /* Mobile-first: one column, contact info stacked above the map */
+  grid-template-columns: minmax(0, 1fr);
+  background-color: #ffffff;
+  border-radius: 6px;
+  overflow: hidden; /* clips the iframe to the card corners */
+  box-shadow: 0 10px 30px rgb(0 0 0 / 12%);
+  min-width: 0;
+}
+
+/* ── Left column: company + contact information (cream) ─────────────── */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.25rem, 3.5vw, 2rem);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  background-color: #fce9cd;
+}
+
+.contact-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: clamp(1.35rem, 4vw, 1.85rem);
+  font-weight: 600;
+  color: #2b4b9b;
+}
+
+.contact-brand-icon {
+  display: grid;
+  place-items: center;
+  color: #ff7f00;
+}
+.contact-brand-icon svg {
+  width: clamp(26px, 6vw, 32px);
+  height: clamp(26px, 6vw, 32px);
+}
+
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.1rem, 3vw, 1.5rem);
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  min-width: 0;
+}
+
+.contact-item-link {
+  display: flex;
+  flex: 1 1 auto; /* full-width tap target */
+  align-items: flex-start;
+  gap: 0.9rem;
+  min-width: 0;
+  transition: opacity 0.2s ease;
+}
+.contact-item-link:hover,
+.contact-item-link:focus-visible {
+  opacity: 0.7;
+}
+.contact-item-link:focus-visible {
+  outline: 3px solid #ff7f00;
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+.contact-item-icon {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+  color: #3f4756;
+}
+.contact-item-icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.contact-item-value {
+  font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+  line-height: 1.7;
+  color: #3f4756;
+  overflow-wrap: anywhere; /* long address must not overflow */
+}
+
+/* ── Right column: Google Maps ──────────────────────────────────────── */
+.contact-map {
+  position: relative;
+  min-width: 0;
+  /* Stack: the iframe keeps a sensible height on small screens */
+  min-height: clamp(260px, 55vw, 320px);
+  background-color: #f1f3f5;
+}
+
+.contact-map-frame {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ── Tablet & desktop: two columns side by side ─────────────────────── */
+@media (min-width: 768px) {
+  .contact-card {
+    grid-template-columns: minmax(0, 38%) minmax(0, 62%);
+    align-items: stretch;
+  }
+
+  /* The map stretches to the height of the contact column */
+  .contact-map {
+    min-height: 420px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .contact-map {
+    min-height: 460px;
+  }
+}
