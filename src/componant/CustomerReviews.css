@@ -1,0 +1,121 @@
+/*
+ * Reused from other components (same pattern as LogoCarousel):
+ *   .carousel-row      -> Carousel.css     (arrow + stage flex row)
+ *   .btn-next-back     -> Carousel.css     (nav arrow buttons)
+ *   .pagination-dots / .pagination-dot     -> InformationHero.css
+ * All are global classes loaded by App, so no styles are duplicated here.
+ */
+
+.review-carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  margin: auto auto 5rem;
+  padding-inline: 1.25rem;
+}
+
+.title-reviews {
+  text-align: center;
+  font-size: clamp(1.6rem, 4vw, 2rem);
+  margin-bottom: 3rem;
+}
+
+/* ── Track: slides side by side, shifted by translateX ─────────────── */
+.review-viewport {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+  max-width: 640px;
+  overflow: hidden;
+  /* Soft frame so the card reads as a distinct surface */
+  border-radius: 20px;
+}
+
+.review-track {
+  display: flex;
+  align-items: stretch;
+  transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Exactly one review per slide */
+.review-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+}
+
+/* ── Review card: vertical column, centre-aligned ──────────────────── */
+.review-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(0.75rem, 2vw, 1rem);
+  width: 100%;
+  padding: clamp(1.5rem, 5vw, 2.5rem) clamp(1.25rem, 4vw, 2.5rem);
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 10%);
+}
+
+/* Circular avatar, identical size on every slide */
+.review-avatar {
+  flex: 0 0 auto;
+  width: clamp(76px, 20vw, 96px);
+  height: clamp(76px, 20vw, 96px);
+  border-radius: 50%;
+  object-fit: cover;
+  background: #f1f3f5;
+  border: 4px solid #ffffff;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 16%);
+}
+
+.review-name {
+  margin: 0;
+  font-size: clamp(1.05rem, 2.6vw, 1.25rem);
+  font-weight: 600;
+  color: #2f3b52;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+/* Small accent rule under the name */
+.review-name::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 3px;
+  margin: 0.5rem auto 0;
+  border-radius: 999px;
+  background: #087fe7;
+}
+
+.review-text {
+  margin: 0;
+  max-width: 46ch;
+  font-size: clamp(0.95rem, 2.4vw, 1.05rem);
+  line-height: 1.7;
+  color: #5b6472;
+  /* Thai segments can run long without spaces — break them rather than overflow */
+  overflow-wrap: anywhere;
+}
+
+/* Keep arrows from crowding the card on narrow screens */
+@media (max-width: 479px) {
+  .review-carousel .carousel-row {
+    gap: 0.4rem;
+  }
+}
+
+/* ── Respect users who ask for less motion ─────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .review-track {
+    transition: none;
+  }
+}

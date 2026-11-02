@@ -1,0 +1,117 @@
+/* ── Carousel: [prev] [stage] [next]  +  dots below ───────────────── */
+.carousel{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    min-width: 0;
+    max-width: 420px;
+    margin-inline: auto;
+}
+.carousel-row{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.5rem, 2vw, 1rem);
+    width: 100%;
+    min-width: 0;
+}
+
+/* ── Arrow buttons ─────────────────────────────────────────────────── */
+.btn-next-back{
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* 44px = comfortable touch target on mobile */
+    width: clamp(38px, 9vw, 44px);
+    height: clamp(38px, 9vw, 44px);
+    padding: 0;
+    font-size: clamp(15px, 3vw, 18px);
+    line-height: 1;
+    color: #2f3b52;
+    background: #ffffff;
+    border: 1px solid rgb(0 0 0 / 8%);
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 12%);
+    cursor: pointer;
+    transition:
+        transform 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
+        box-shadow 0.2s ease,
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+.btn-next-back:hover{
+    background-color: #087fe7;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgb(8 127 231 / 35%);
+}
+.btn-next-back:active{
+    transform: translateY(0) scale(0.94);
+    box-shadow: 0 2px 6px rgb(0 0 0 / 14%);
+}
+.btn-next-back:focus-visible{
+    outline: 3px solid #087fe7;
+    outline-offset: 2px;
+}
+
+/* ── Slide stage ───────────────────────────────────────────────────── */
+.carousel-stage{
+    position: relative;
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+    /* Preserves the original 1:1 (300x300) look on desktop,
+       but scales down instead of overflowing on small screens. */
+    aspect-ratio: 1 / 1;
+    max-width: 300px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #f1f3f5;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 14%);
+}
+/* Every slide is stacked in the same box; opacity does the transition */
+.images-hero{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transform: scale(1.04);
+    transition:
+        opacity 0.5s ease,
+        transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+    pointer-events: none;
+}
+.images-hero.is-active{
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Keep the dot row clear of the stage on every size */
+.carousel .pagination-dots{
+    margin-top: 0.25rem;
+}
+
+/* Respect users who ask for less motion: swap slides instantly */
+@media (prefers-reduced-motion: reduce) {
+    .images-hero{
+        transition: none;
+        transform: none;
+    }
+    .images-hero.is-active{
+        transform: none;
+    }
+    .btn-next-back{
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
+    .btn-next-back:hover{
+        transform: none;
+    }
+    .btn-next-back:active{
+        transform: none;
+    }
+}

@@ -1,0 +1,53 @@
+/* ── Car Insurance page ──────────────────────────────────────────────
+   Cream hero (#fdf3e3) with a curved bottom edge, blue title
+   (#2b4b9b) and orange icon (#ff7f00), matching the reference.  */
+
+.car-insurance {
+  /* Clears the fixed navbar above */
+  padding-top: 68px;
+}
+
+.ci-container {
+  max-width: 1200px;
+  margin: auto;
+  padding-inline: 1.25rem;
+}
+
+/* ── Hero ──────────────────────────────────────────────────────────── */
+.ci-hero {
+  position: relative;
+  background-color: #fdf3e3;
+  /* Room for the wave that overlaps the bottom */
+  padding: clamp(2rem, 6vw, 3.5rem) 0 clamp(3rem, 8vw, 4.5rem);
+}
+
+.ci-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: clamp(1.6rem, 5vw, 2.25rem);
+  font-weight: 600;
+  color: #2b4b9b;
+}
+
+.ci-title-icon {
+  flex: 0 0 auto;
+  width: clamp(28px, 7vw, 36px);
+  height: clamp(28px, 7vw, 36px);
+  color: #ff7f00;
+}
+
+/* White wave = the curved bottom edge of the hero */
+.ci-hero-wave {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  display: block;
+  width: 100%;
+  height: clamp(28px, 6vw, 70px);
+}
+
+/* ── Body ──────────────────────────────────────────────────────────── */
+.ci-body {
+  padding: clamp(2rem, 6vw, 3rem) 0 clamp(3rem, 8vw, 5rem);
+}

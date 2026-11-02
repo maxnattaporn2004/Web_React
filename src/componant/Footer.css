@@ -1,0 +1,214 @@
+/* ── Footer ──────────────────────────────────────────────────────────
+   Dark slate base (#2f3b52) complements the orange navbar (#ff7f00).
+   Mobile-first: 1 column → 2 (tablet) → 4 (desktop).                 */
+
+.site-footer {
+  background-color: #e99221;
+  color: #e7e9ec;
+  /* Clears the section above; normal flow — never position: fixed */
+  margin-top: clamp(2rem, 6vw, 4rem);
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  padding-inline: 1.25rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.75rem, 4vw, 2.5rem);
+  padding-block: clamp(2.5rem, 6vw, 4rem);
+}
+
+.footer-col {
+  min-width: 0;
+}
+
+/* ── Headings with brand accent underline ──────────────────────────── */
+.footer-heading {
+  position: relative;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.25rem;
+  font-size: clamp(1.05rem, 2.4vw, 1.2rem);
+  font-weight: 600;
+  color: #ffffff;
+}
+.footer-heading::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 40px;
+  height: 3px;
+  border-radius: 999px;
+  background-color: #ff7f00;
+}
+
+/* ── Company information ───────────────────────────────────────────── */
+.footer-brand {
+  font-size: clamp(1.4rem, 3vw, 1.75rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+.footer-desc {
+  font-size: clamp(0.95rem, 1.4vw, 1rem);
+  line-height: 1.7;
+  color: #f4f7fa;
+  /* Long unbroken runs must wrap, not cause horizontal scroll */
+  overflow-wrap: anywhere;
+}
+
+/* ── Lists & links ─────────────────────────────────────────────────── */
+.footer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.footer-link {
+  display: inline-block;
+  position: relative;
+  font-size: clamp(0.95rem, 1.4vw, 1rem);
+  color: #fdfeff;
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+.footer-link::before {
+  content: "→";
+  display: inline-block;
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: width 0.25s ease, opacity 0.25s ease;
+}
+.footer-link:hover,
+.footer-link:focus-visible {
+  color: #000000;
+  transform: translateX(2px);
+}
+.footer-link:hover::before,
+.footer-link:focus-visible::before {
+  width: 1.1em;
+  opacity: 1;
+}
+.footer-link:focus-visible {
+  outline: 2px solid #fffdfc;
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* ── Contact information ───────────────────────────────────────────── */
+.footer-contact {
+  gap: 1rem;
+}
+.footer-contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: clamp(0.95rem, 1.4vw, 1rem);
+  color: #ffffff;
+}
+.footer-contact-icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: rgb(255 127 0 / 15%);
+  color: #f7f4f2;
+}
+.footer-contact-icon svg {
+  width: 17px;
+  height: 17px;
+}
+.footer-contact-text {
+  padding-top: 0.4rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.footer-note {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: #fdfeff;
+}
+
+/* ── Social media ──────────────────────────────────────────────────── */
+.footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.footer-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* Comfortable touch target on mobile */
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: rgb(255 255 255 / 8%);
+  color: #ffffff;
+  transition:
+    background-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+.footer-social-link svg {
+  width: 20px;
+  height: 20px;
+}
+.footer-social-link:hover,
+.footer-social-link:focus-visible {
+  background-color: #ff7f00;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgb(255 127 0 / 35%);
+}
+.footer-social-link:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* ── Divider + copyright ───────────────────────────────────────────── */
+.footer-bottom {
+  border-top: 1px solid rgba(20, 15, 15, 0.12);
+  padding-block: clamp(1.25rem, 3vw, 1.75rem);
+}
+.footer-copy {
+  text-align: center;
+  font-size: clamp(0.875rem, 1.4vw, 0.95rem);
+  color: #fafafa;
+}
+
+/* ── Tablet: two columns ───────────────────────────────────────────── */
+@media (min-width: 768px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ── Desktop: four columns ─────────────────────────────────────────── */
+@media (min-width: 1024px) {
+  .footer-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1.5rem, 3vw, 3rem);
+  }
+}
+
+/* ── Respect users who ask for less motion ─────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .footer-link,
+  .footer-link::before,
+  .footer-social-link {
+    transition: none;
+  }
+  .footer-link:hover,
+  .footer-link:focus-visible,
+  .footer-social-link:hover,
+  .footer-social-link:focus-visible {
+    transform: none;
+  }
+}

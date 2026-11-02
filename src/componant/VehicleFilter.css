@@ -1,0 +1,89 @@
+/* ── Vehicle filter: two dropdowns in one row (desktop) ─────────────── */
+
+.vehicle-filter {
+  display: grid;
+  /* Mobile-first: one column; two columns from tablet up */
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.25rem, 4vw, 3rem);
+  margin-bottom: clamp(2rem, 5vw, 3rem);
+}
+
+.vf-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+/* Orange icon + blue label */
+.vf-label {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+  font-weight: 600;
+  color: #2b4b9b;
+}
+
+.vf-icon {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  color: #ff7f00;
+}
+
+/* Rounded input, subtle gray border */
+.vf-select-wrap {
+  position: relative;
+  display: flex;
+}
+.vf-select {
+  width: 100%;
+  min-width: 0;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  font-family: inherit;
+  color: #333333;
+  background-color: #ffffff;
+  border: 1px solid #d9dde3;
+  border-radius: 10px;
+  padding: 0.7rem 2.5rem 0.7rem 1rem;
+  cursor: pointer;
+  appearance: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.vf-select:hover {
+  border-color: #b9c0cb;
+}
+.vf-select:focus {
+  outline: none;
+  border-color: #ff7f00;
+  box-shadow: 0 0 0 3px rgb(255 127 0 / 20%);
+}
+
+/* Custom dropdown arrow (the native one is hidden by appearance:none) */
+.vf-select-wrap::after {
+  content: "";
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid #7a8494;
+  border-bottom: 2px solid #7a8494;
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+
+/* ── Tablet and up: two dropdowns side by side ─────────────────────── */
+@media (min-width: 768px) {
+  .vehicle-filter {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ── Respect users who ask for less motion ─────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .vf-select {
+    transition: none;
+  }
+}

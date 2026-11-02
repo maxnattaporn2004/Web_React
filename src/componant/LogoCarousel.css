@@ -1,0 +1,68 @@
+.logo-carousel {
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  margin: auto auto 5rem;
+  padding-inline: 1.25rem;
+}
+
+.title-logo {
+  text-align: center;
+  font-size: clamp(1.6rem, 4vw, 2rem);
+  margin-bottom: 3rem;
+}
+
+/* Viewport clips the track; the track slides via translateX */
+.logo-carousel-viewport {
+  overflow: hidden;
+  width: 100%;
+  margin: auto;
+  /* Caps the row so 4 logos never stretch wider than the design intends */
+  max-width: 940px;
+}
+
+.logo-carousel-track {
+  display: flex;
+  /* Each page is exactly one viewport wide, so -100% * page == one slide */
+  transition: transform 0.45s ease;
+}
+
+.logo-page {
+  flex: 0 0 100%;
+  min-width: 0;
+  display: grid;
+  /* Mobile-first: 2 × 2 grid so logos stay large enough to read */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 1.5rem);
+  align-items: center;
+  justify-items: center;
+}
+
+.logo-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  /* Consistent, identical sizing for every logo card */
+  max-width: 200px;
+  aspect-ratio: 1 / 1;
+  padding: 12px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px #00000015;
+}
+
+.logo-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* Logos must never be stretched or cropped */
+  object-fit: contain;
+}
+
+/* Tablet and up: single row of 4, original carousel look */
+@media (min-width: 768px) {
+  .logo-page {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

@@ -1,0 +1,172 @@
+.container-information-card {
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  margin: auto;
+  padding-inline: 1.25rem;
+}
+.container-information-card h1 {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.card-information-list {
+  display: grid;
+  /* 1 column on phones, 3 columns on tablet+ (original look) */
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 24px);
+}
+
+@media (min-width: 768px) {
+  .card-information-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ── Card ──────────────────────────────────────────────────────────── */
+.card-information {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 2px 8px #00000015;
+  min-width: 0;
+  /* Entrance + hover are transform/opacity only → GPU-friendly.
+     `backwards` shows the from-state during the delay, then falls back to
+     the normal visible styles, so cards can never get stuck invisible. */
+  animation: card-rise 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) backwards;
+  /* Staggered by the inline --i index set in the JSX */
+  animation-delay: calc(var(--i, 0) * 70ms);
+  transition:
+    transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.25s ease;
+}
+@keyframes card-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.card-information:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgb(0 0 0 / 14%);
+}
+.card-information:focus-within {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgb(0 0 0 / 14%);
+}
+
+/* Media wrapper clips the image zoom so nothing spills out of the card */
+.card-information-media {
+  overflow: hidden;
+  background: #f1f3f5;
+}
+.card-information img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.card-information:hover img {
+  transform: scale(1.06);
+}
+
+.card-information p {
+  flex: 1 1 auto;
+  padding: 16px;
+  margin: 0;
+  line-height: 1.55;
+  transition: color 0.25s ease;
+}
+.card-information:hover p {
+  color: #087fe7;
+}
+
+/* ── Pagination dots (shared with Carousel + LogoCarousel) ─────────── */
+.pagination-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  place-self: center;
+  margin-top: 1rem;
+}
+.pagination-dot {
+  position: relative;
+  /* Visual size stays 9px; the padded button gives a ~28px tap target */
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+/* The visible dot lives in ::before so padding can grow the hit area */
+.pagination-dot::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #c9c9c9;
+  transform: translate(-50%, -50%);
+  transition:
+    width 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
+    background-color 0.3s ease;
+}
+.pagination-dot:hover::before {
+  background: #8a939e;
+}
+
+/* จุดของหน้าปัจจุบัน */
+.pagination-dot.active {
+  background: transparent;
+}
+.pagination-dot.active::before {
+  /* Widen into a pill — makes the current page obvious at a glance */
+  width: 26px;
+  border-radius: 999px;
+  background: #087fe7;
+}
+.pagination-dot:focus-visible {
+  outline: 3px solid #087fe7;
+  outline-offset: -4px;
+}
+
+.title-information {
+  text-align: center;
+  font-size: clamp(1.6rem, 4vw, 2rem);
+  margin-bottom: 3rem;
+}
+
+/* Respect users who ask for less motion: no rise, no hover lift/zoom */
+@media (prefers-reduced-motion: reduce) {
+  .card-information {
+    opacity: 1;
+    animation: none;
+    transition: none;
+  }
+  .card-information:hover,
+  .card-information:focus-within {
+    transform: none;
+  }
+  .card-information img {
+    transition: none;
+  }
+  .card-information:hover img {
+    transform: none;
+  }
+  .pagination-dot::before {
+    transition: background-color 0.2s ease;
+  }
+}

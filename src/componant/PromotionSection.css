@@ -1,0 +1,171 @@
+/* ── Promotions section ──────────────────────────────────────────────
+   Vertically stacked horizontal cards: image left, text right.
+   Same tokens as the rest of the site:
+   container 1200px · slate #2f3b52 · muted #5b6472 · orange #ff7f00 */
+
+.promotion-section {
+  padding: clamp(2.5rem, 6vw, 4rem) 0 clamp(3rem, 7vw, 5rem);
+}
+
+.promo-container {
+  max-width: 1200px;
+  margin: auto;
+  padding-inline: 1.25rem;
+}
+
+.promo-title {
+  text-align: start;
+  font-size: clamp(4rem, 4vw, 2rem);
+  color: #2f3b52;
+  margin-top: clamp(1.75rem, 4vw, 2.5rem);
+  margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+/* ── List: one card per row ────────────────────────────────────────── */
+.promo-list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.25rem, 3vw, 1.75rem);
+}
+
+/* ── Card ──────────────────────────────────────────────────────────── */
+.promo-card {
+  position: relative; /* anchor for the stretched link overlay */
+  display: flex;
+  flex-direction: column; /* mobile-first: image above the text */
+  background-color: #ffffff;
+  border: 1px solid rgb(0 0 0 / 8%);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgb(0 0 0 / 6%);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+/* Whole card is clickable: it reacts to hovering anywhere on it */
+.promo-card:hover,
+.promo-card:focus-within {
+  box-shadow: 0 12px 28px rgb(0 0 0 / 12%);
+  transform: translateY(-3px);
+}
+
+/* ── Image (left side on desktop) ──────────────────────────────────── */
+.promo-image-wrap {
+  flex: 0 0 auto;
+  width: 100%;
+  /* Soft cream backdrop while the image loads */
+  background-color: #fdf3e3;
+}
+.promo-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.promo-card:hover .promo-image {
+  transform: scale(1.04);
+}
+
+/* ── Text column (right side on desktop) ───────────────────────────── */
+.promo-body {
+  display: flex;
+  flex-direction: column; /* title → description → Read More */
+  align-items: flex-start;
+  gap: 0.6rem;
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: clamp(1.25rem, 4vw, 1.75rem);
+}
+
+.promo-card-title {
+  font-size: clamp(1.05rem, 2.6vw, 1.3rem);
+  font-weight: 600;
+  color: #2f3b52;
+  line-height: 1.4;
+  overflow-wrap: anywhere; /* long Thai strings must not overflow */
+}
+
+.promo-card-content {
+  flex: 1 1 auto; /* pushes "Read More" to the bottom of the column */
+  font-size: clamp(0.925rem, 2.4vw, 1rem);
+  line-height: 1.7;
+  color: #5b6472;
+  overflow-wrap: anywhere;
+}
+
+/* ── "Read More" ───────────────────────────────────────────────────── */
+.promo-action {
+  margin-top: 0.25rem;
+}
+.promo-link {
+  display: inline-block;
+  font-size: clamp(0.925rem, 2.4vw, 1rem);
+  font-weight: 600;
+  color: #ff7f00;
+  transition: color 0.2s ease;
+}
+.promo-link:hover,
+.promo-link:focus-visible {
+  color: #d96b00;
+  text-decoration: underline;
+}
+/* Stretched overlay: clicking anywhere on the card hits this link */
+.promo-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+/* Clear keyboard focus ring around the whole card */
+.promo-link:focus-visible {
+  outline: none; /* the ring is drawn on the overlay instead */
+}
+.promo-link:focus-visible::after {
+  outline: 3px solid #ff7f00;
+  outline-offset: -3px; /* keeps the ring inside the rounded corners */
+  border-radius: inherit;
+}
+
+/* Visually hidden text for screen readers */
+.promo-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Desktop: image left, text right ───────────────────────────────── */
+@media (min-width: 768px) {
+  .promo-card {
+    flex-direction: row;
+    align-items: stretch;
+  }
+  .promo-image-wrap {
+    /* Fixed column so every card's image lines up */
+    flex: 0 0 34%;
+    max-width: 380px;
+  }
+  .promo-image {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+}
+
+/* ── Respect users who ask for less motion ─────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .promo-card,
+  .promo-image {
+    transition: none;
+  }
+  .promo-card:hover,
+  .promo-card:focus-within {
+    transform: none;
+  }
+  .promo-card:hover .promo-image {
+    transform: none;
+  }
+}
