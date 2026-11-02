@@ -2,8 +2,8 @@
 
 A Thai-language **car insurance broker website** (brand: *ดีน่า* / Dena), built as a
 frontend-only demo with **React 19** and **Vite 8**. The site lets visitors browse
-insurance products, promotions and news articles, and includes a client-side
-login/register screen.
+insurance products, promotions and news articles, contact the company (with an
+embedded Google Map), and includes a client-side login/register screen.
 
 > **Demo only — no backend.** All content (reviews, promotions, news, logos,
 > contact details) is mock/placeholder data. The auth form validates input but
@@ -27,6 +27,7 @@ Navigation is handled by a lightweight **hash router** implemented in
 | `#/car-insurance`  | Car Insurance (`ประกันภัยรถยนต์`) | Vehicle/usage filters + selectable insurance types                          |
 | `#/promotions`     | Promotions (`โปรโมชั่น`)    | Sample promotion cards                                                                          |
 | `#/news`           | News (`ข่าวสาร`)             | Searchable, category-filterable, paginated article list                                     |
+| `#/contact`        | Contact (`ติดต่อเรา`)        | Contact details card + embedded Google Maps                                                                        |
 
 ### Home page
 - **Hero section** with an image carousel (prev/next arrows, pagination dots,
@@ -55,6 +56,15 @@ Navigation is handled by a lightweight **hash router** implemented in
   derived automatically from the data).
 - **`NewsCard`** list, 3 per page with prev/next controls.
 - Empty state when a search/filter combination matches nothing.
+
+### Contact page
+- Cream header band with a wavy edge, decorative blue blob, and the
+  "ช่องทางการติดต่อ" title with an orange location pin.
+- **`ContactUs`** — centred card split into two columns: company/address/phone/
+  LINE details on a cream background (phone and LINE are `tel:`/external links)
+  and a responsive **Google Maps** iframe embedded from the address query
+  (no API key required).
+- Stacks into a single column on tablet/mobile.
 
 ### Auth page
 - Login and registration modes with client-side validation (email format,
@@ -167,7 +177,8 @@ my-app/
         ├── PromotionSection.jsx / .css          # Promotions page
         ├── NewsSection.jsx / .css               # News page (filter + pagination)
         ├── NewsCard.jsx                         # Single news card (styled by NewsSection.css)
-        └── NewsSidebar.jsx                      # Search + category filter (styled by NewsSection.css)
+        ├── NewsSidebar.jsx                      # Search + category filter (styled by NewsSection.css)
+        └── ContactUs.jsx / .css                 # Contact page (details card + Google Maps)
 ```
 
 ---
@@ -176,8 +187,9 @@ my-app/
 
 - **Hash routing:** `src/App.jsx` listens to `hashchange` and renders a page
   per route. `#/login` and `#/register` render the auth screen alone; the other
-  routes wrap their page between `Header` and `Footer`. Changing routes scrolls
-  back to the top.
+  routes (home, car-insurance, promotions, news, contact) wrap their page
+  between `Header` and `Footer`. Changing routes scrolls back to the top.
+  The navbar's "ติดต่อเรา" link points to `#/contact`.
 - **Shared data:** `src/data/newsData.js` is the single source of articles for
   both the home-page tips section and the news page — edit it once to update
   both.
@@ -188,8 +200,10 @@ my-app/
 - **`NewsCard` / `NewsSidebar`** have no stylesheet of their own; they are
   styled by `NewsSection.css`.
 - **Placeholder content to replace with real data:** the logo text in the
-  header/footer, contact details, social-media links, partner logos,
-  promotions, and article "Read More" links all point to placeholders or `#`.
+  header/footer, the footer's contact details, social-media links, partner
+  logos, promotions, and article "Read More" links all point to placeholders
+  or `#`. (The `#/contact` page already uses the real company address, phone
+  and LINE ID.)
 - **The `src/componant/` folder name is intentional** in the current codebase —
   imports across the app match this spelling.
 - **External images:** hero/category/article images are hot-linked from
